@@ -12,24 +12,33 @@ const data = require("./data.json");
 const info = {
 	// your entries here
 	name: "Erik Andersson",
-	birthDay: new Date(`2000-11-11`),
-	toys: ["car", "bike", "boat"],
-	partner: { name: "Erika Andersson" },
-	age: function age() {
-		Math.round((new Date() - this.birthDay) / 1000 / 60 / 60 / 24 / 365);
-	}S,
+	dob: new Date("12-08-1998"),
+	favFood: ["naan", "dal", 123],
+	education: {
+		gymnasiet: "Stenhagen",
+		university: "KTH",
+	},
+	// surname: () => this.name.split(" ")[1],
+	surname: function a() {
+		return this.name.split(" ")[1];
+	},
 };
+// console.log(info.surname())
+
+// console.log(info.name)
 
 console.log(info);
 console.log(info.age());
 
 /**
- * 2. from the array inside the object "info", add it to a new array using destructuring ellipses.
+ * 2. from the array inside the object "info", add it to a new array using spread operator/ellipses.
  * the new array should contain:
  * ["element-one", rest of the contents of the old array, "element-two"]
  */
 
-const newArray = ["element-one", ...info.toys, "elemtent-two"];
+const newArray = ["element-one", ...info.favFood, "elemt-two"];
+
+// console.log(newArray)
 
 console.log(newArray);
 
@@ -38,7 +47,12 @@ console.log(newArray);
  * Add the object from the file into a new field called "new" inside the object "info"
  */
 
-info.new = { data };
+const json = require("./data.json");
+info.new = {
+	...json,
+};
+
+// console.log(info)
 
 console.log(info);
 
@@ -46,20 +60,22 @@ console.log(info);
  * 4. create an arrow function which creates and returns the list of keys from an input object
  */
 
-const getKeys = (obj) => Object.keys(obj);
-console.log(getKeys(info));
+const getKeys = (myObj) => Object.keys(myObj);
+
+// console.log(getKeys(info))
 
 /**
  * 5. convert the date entry from the object "info" into an ISO string and parse it
  */
-const myDateString = Date.parse(info.birthDay.toISOString());
-console.log(myDateString);
+const myDateString = info.dob.toISOString();
+
+// console.log(myDateString)
 
 /**
  * 6. take the array from the object "info" and use the "map" function to return a
  * new array with each item being converted into a string
  */
-const myNewArray = info.toys.map((toy) => toy.toString());
+const myNewArray = info.favFood.map((item) => item.toString());
 
 console.log(myNewArray);
 
@@ -70,10 +86,12 @@ console.log(myNewArray);
  * - filter function (array)
  */
 
-const arrRed = info.toys.reduce((theToys, toy) => (theToys += `, ${toy}`));
+const array = [1, 2, 3, 4];
 
-console.log(arrRed);
+// filtered down to just the elements from the given array that pass the test implemented by the function.
+// console.log( array.filter( (item) => item%2 === 0) )
 
-const arrFilter = info.toys.filter((toy) => toy === "car");
-
-console.log(arrFilter);
+// The reducer walks through the array element-by-element, at each step adding the current array
+// value to the result from the previous step (this result is the running sum of all the previous steps)
+// — until there are no more elements to add.
+console.log(array.reduce((prev, next) => prev + next));
